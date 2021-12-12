@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\BrandStoreRequest;
+use App\Http\Requests\BrandUpdateRequest;
+use Illuminate\Support\Facades\Gate;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,11 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        Gate::authorize('admin.bikes.index');
+        $brands = Brand::select('id', 'name', 'updated_at')
+                ->orderBy('id', 'DESC')
+                ->get();
+        return view('backend.brand.index', compact('brands'));
     }
 
     /**
@@ -25,7 +37,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('admin.bikes.create');
+        return view('backend.brand.form');
     }
 
     /**
@@ -34,20 +47,22 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BrandStoreRequest $request)
     {
-        //
-    }
+        Gate::authorize('admin.bikes.create');
+        $productType = Brand::create([
+            'name' => $request->name
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Brand $brand)
-    {
-        //
+        // upload images
+        if ($request->hasFile('brand_image')) {
+            $fileName = rand() . time() . '.' . $request->file('brand_image')->extension();
+            $productType->addMedia($request->file('brand_image'))
+                ->usingFileName($fileName)
+                ->toMediaCollection('brand_image');
+        }
+        notify()->success('Brand created successfully.', 'Added');
+        return back();
     }
 
     /**
@@ -58,7 +73,8 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        Gate::authorize('admin.bikes.edit');
+        return view('backend.brand.form', compact('brand'));
     }
 
     /**
@@ -68,9 +84,21 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(BrandUpdateRequest $request, Brand $brand)
     {
-        //
+        Gate::authorize('admin.bikes.edit');
+        $brand->update([
+            'name' => $request->name
+        ]);
+        // upload images
+        if ($request->hasFile('brand_image')) {
+            $fileName = rand() . time() . '.' . $request->file('brand_image')->extension();
+            $brand->addMedia($request->file('brand_image'))
+                ->usingFileName($fileName)
+                ->toMediaCollection('brand_image');
+        }
+        notify()->success('Brand update successfully.', 'Updated');
+        return back();
     }
 
     /**
@@ -81,6 +109,9 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        Gate::authorize('admin.bikes.destroy');
+        $brand->delete();
+        notify()->success('Brand deleted', 'Success');
+        return back();
     }
 }

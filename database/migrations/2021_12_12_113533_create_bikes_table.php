@@ -20,7 +20,7 @@ class CreateBikesTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('model');
-            $table->decimal('price_per_hours', 8, 2);
+            $table->decimal('price_per_day', 8, 2);
             $table->decimal('discount_price', 8, 2)->nullable();
             $table->longText('description');
             $table->boolean('status')->default(false);

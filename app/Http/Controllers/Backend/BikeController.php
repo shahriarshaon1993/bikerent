@@ -1,0 +1,152 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Models\Bike;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use Illuminate\Support\Facades\Gate;
+
+class BikeController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        Gate::authorize('admin.bikes.index');
+        $bikes = Bike::select('id', 'title','price_per_day','discount_price', 'status', 'updated_at')
+                ->orderBy('id', 'DESC')
+                ->get();
+        return view('backend.bike.index', compact('bikes'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        Gate::authorize('admin.bikes.create');
+        $brands = Brand::select('id', 'name')->get();
+        $parentCategories = Category::select('id', 'name')
+                    ->with('subcategory')
+                    ->whereNull('parent_id')
+                    ->get();
+
+        return view('backend.bike.form', compact('brands', 'parentCategories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        Gate::authorize('admin.bikes.create');
+        $bike = Bike::create([
+            'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
+            'title' => $request->title,
+            'model' => $request->model,
+            'price_per_day' => $request->price_per_day,
+            'discount_price' => $request->discount_price,
+            'description' => $request->description,
+            'status' => $request->filled('status')
+        ]);
+
+        // upload images
+        if ($request->hasFile('bike_image')) {
+            $fileName = rand() . time() . '.' . $request->file('bike_image')->extension();
+            $bike->addMedia($request->file('bike_image'))
+                ->usingFileName($fileName)
+                ->toMediaCollection('bike_image');
+        }
+        notify()->success('Product created successfully.', 'Added');
+        return back();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Bike  $bike
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Bike $bike)
+    {
+        Gate::authorize('admin.bikes.create');
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Bike  $bike
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Bike $bike)
+    {
+        Gate::authorize('admin.bikes.edit');
+        $brands = Brand::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
+        return view('backend.bike.form', compact('bike', 'brands', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Bike  $bike
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Bike $bike)
+    {
+        Gate::authorize('admin.bikes.edit');
+        $bike->update([
+            'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
+            'title' => $request->title,
+            'model' => $request->model,
+            'price_per_day' => $request->price_per_day,
+            'discount_price' => $request->discount_price,
+            'description' => $request->description,
+            'status' => $request->filled('status')
+        ]);
+
+        // upload images
+        if ($request->hasFile('bike_image')) {
+            $fileName = rand() . time() . '.' . $request->file('bike_image')->extension();
+            $bike->addMedia($request->file('bike_image'))
+                ->usingFileName($fileName)
+                ->toMediaCollection('bike_image');
+        }
+        notify()->success('Product updated successfully.', 'Added');
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Bike  $bike
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Bike $bike)
+    {
+        Gate::authorize('admin.bikes.destroy');
+        $bike->delete();
+        notify()->success('Product deleted', 'Success');
+        return back();
+    }
+}

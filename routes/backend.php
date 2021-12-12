@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\BackupController;
+use App\Http\Controllers\Backend\BikeController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
@@ -72,3 +74,7 @@ Route::as('settings.')->prefix('settings')->group(function () {
 
 // Categories
 Route::resource('categories', CategoryController::class)->except('show');
+// Brands
+Route::resource('brands', BrandController::class)->except('show');
+// Bikes
+Route::resource('bikes', BikeController::class);

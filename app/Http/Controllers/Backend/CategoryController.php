@@ -53,7 +53,7 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
         ]);
         notify()->success('Category created successfully.', 'Added');
-        return redirect()->route('app.categories.index');
+        return back();
     }
 
     /**

@@ -38,6 +38,22 @@ class MenuSeeder extends Seeder
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 3,
+            'title' => 'Categories',
+            'url' => '/app/categories',
+            'icon_class' => 'fas fa-folder-open',
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
+            'order' => 4,
+            'title' => 'Brands',
+            'url' => '/app/brands',
+            'icon_class' => 'fas fa-battle-net',
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
+            'order' => 5,
             'title' => 'Pages',
             'url' => '/app/pages',
             'icon_class' => 'metismenu-icon pe-7s-news-paper',
@@ -45,13 +61,13 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'divider',
-            'order' => 4,
+            'order' => 6,
             'divider_title' => 'Access controll'
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 5,
+            'order' => 7,
             'title' => 'Roles',
             'url' => '/app/roles',
             'icon_class' => 'metismenu-icon pe-7s-check',
@@ -59,7 +75,7 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 6,
+            'order' => 8,
             'title' => 'Users',
             'url' => '/app/users',
             'icon_class' => 'metismenu-icon pe-7s-users',
@@ -67,13 +83,13 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'divider',
-            'order' => 7,
+            'order' => 9,
             'divider_title' => 'System'
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 8,
+            'order' => 10,
             'title' => 'Menus',
             'url' => '/app/menus',
             'icon_class' => 'metismenu-icon pe-7s-menu',
@@ -81,7 +97,7 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 9,
+            'order' => 11,
             'title' => 'Backups',
             'url' => '/app/backups',
             'icon_class' => 'metismenu-icon pe-7s-cloud',
@@ -89,7 +105,7 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 10,
+            'order' => 12,
             'title' => 'Settings',
             'url' => '/app/settings/general',
             'icon_class' => 'metismenu-icon pe-7s-settings',
