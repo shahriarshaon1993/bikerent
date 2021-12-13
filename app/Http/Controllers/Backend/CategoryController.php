@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Gate::authorize('admin.bikes.index');
+        Gate::authorize('app.bikes.index');
         $parentCategories = Category::select('id', 'name', 'parent_id', 'updated_at')->orderBy('id', 'DESC')->get();
         return view('backend.category.index', compact('parentCategories'));
     }
@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
         $parentCategories = Category::with('subcategory')->whereNull('parent_id')->get();
         return view('backend.category.form', compact('parentCategories'));
     }
@@ -47,7 +47,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
         Category::create([
             'name' => $request->name,
             'parent_id' => $request->parent_id,
@@ -64,7 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        Gate::authorize('admin.bikes.edit');
+        Gate::authorize('app.bikes.edit');
         $parentCategories = Category::with('subcategory')->whereNull('parent_id')->get();
         return view('backend.category.form', compact('category', 'parentCategories'));
     }
@@ -78,7 +78,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request, Category $category)
     {
-        Gate::authorize('admin.bikes.edit');
+        Gate::authorize('app.bikes.edit');
         $category->update([
             'name' => $request->name,
             'parent_id' => $request->parent_id
@@ -95,7 +95,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Gate::authorize('admin.bikes.destroy');
+        Gate::authorize('app.bikes.destroy');
         $category->delete();
         notify()->success('Category deleted', 'Success');
         return back();

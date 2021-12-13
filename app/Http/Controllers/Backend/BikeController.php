@@ -23,7 +23,7 @@ class BikeController extends Controller
      */
     public function index()
     {
-        Gate::authorize('admin.bikes.index');
+        Gate::authorize('app.bikes.index');
         $bikes = Bike::select('id', 'title','price_per_day','discount_price', 'status', 'updated_at')
                 ->orderBy('id', 'DESC')
                 ->get();
@@ -37,7 +37,7 @@ class BikeController extends Controller
      */
     public function create()
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
         $brands = Brand::select('id', 'name')->get();
         $parentCategories = Category::select('id', 'name')
                     ->with('subcategory')
@@ -55,7 +55,7 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
         $bike = Bike::create([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
@@ -86,7 +86,7 @@ class BikeController extends Controller
      */
     public function show(Bike $bike)
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
 
     }
 
@@ -98,7 +98,7 @@ class BikeController extends Controller
      */
     public function edit(Bike $bike)
     {
-        Gate::authorize('admin.bikes.edit');
+        Gate::authorize('app.bikes.edit');
         $brands = Brand::select('id', 'name')->get();
         $categories = Category::select('id', 'name')->get();
         return view('backend.bike.form', compact('bike', 'brands', 'categories'));
@@ -113,7 +113,7 @@ class BikeController extends Controller
      */
     public function update(Request $request, Bike $bike)
     {
-        Gate::authorize('admin.bikes.edit');
+        Gate::authorize('app.bikes.edit');
         $bike->update([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
@@ -137,6 +137,36 @@ class BikeController extends Controller
     }
 
     /**
+     * Product active logic
+     *
+     * @param  mixed $product
+     * @return void
+     */
+    public function active(Bike $bike)
+    {
+        $bike->update([
+            'status' => true
+        ]);
+        notify()->success('Product active successfully.', 'Activated');
+        return back();
+    }
+
+    /**
+     * Product deactive logic
+     *
+     * @param  mixed $product
+     * @return void
+     */
+    public function deactive(Bike $bike)
+    {
+        $bike->update([
+            'status' => false
+        ]);
+        notify()->success('Product deactive successfully.', 'Dectivated');
+        return back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Bike  $bike
@@ -144,7 +174,7 @@ class BikeController extends Controller
      */
     public function destroy(Bike $bike)
     {
-        Gate::authorize('admin.bikes.destroy');
+        Gate::authorize('app.bikes.destroy');
         $bike->delete();
         notify()->success('Product deleted', 'Success');
         return back();

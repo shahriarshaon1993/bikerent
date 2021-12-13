@@ -17,7 +17,7 @@ class CreateBikesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->string('model');
             $table->decimal('price_per_day', 8, 2);

@@ -23,7 +23,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        Gate::authorize('admin.bikes.index');
+        Gate::authorize('app.bikes.index');
         $brands = Brand::select('id', 'name', 'updated_at')
                 ->orderBy('id', 'DESC')
                 ->get();
@@ -37,7 +37,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
         return view('backend.brand.form');
     }
 
@@ -49,7 +49,7 @@ class BrandController extends Controller
      */
     public function store(BrandStoreRequest $request)
     {
-        Gate::authorize('admin.bikes.create');
+        Gate::authorize('app.bikes.create');
         $productType = Brand::create([
             'name' => $request->name
         ]);
@@ -73,7 +73,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        Gate::authorize('admin.bikes.edit');
+        Gate::authorize('app.bikes.edit');
         return view('backend.brand.form', compact('brand'));
     }
 
@@ -86,7 +86,7 @@ class BrandController extends Controller
      */
     public function update(BrandUpdateRequest $request, Brand $brand)
     {
-        Gate::authorize('admin.bikes.edit');
+        Gate::authorize('app.bikes.edit');
         $brand->update([
             'name' => $request->name
         ]);
@@ -109,7 +109,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        Gate::authorize('admin.bikes.destroy');
+        Gate::authorize('app.bikes.destroy');
         $brand->delete();
         notify()->success('Brand deleted', 'Success');
         return back();

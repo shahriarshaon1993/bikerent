@@ -148,22 +148,45 @@ class PermissionSeeder extends Seeder
         Permission::updateOrCreate([
             'module_id' => $moduleAdminBike->id,
             'name' => 'Access bike',
-            'slug' => 'admin.bikes.index',
+            'slug' => 'app.bikes.index',
         ]);
         Permission::updateOrCreate([
             'module_id' => $moduleAdminBike->id,
             'name' => 'Create bike',
-            'slug' => 'admin.bikes.create',
+            'slug' => 'app.bikes.create',
         ]);
         Permission::updateOrCreate([
             'module_id' => $moduleAdminBike->id,
             'name' => 'Edit bike',
-            'slug' => 'admin.bikes.edit',
+            'slug' => 'app.bikes.edit',
         ]);
         Permission::updateOrCreate([
             'module_id' => $moduleAdminBike->id,
             'name' => 'Delete bike',
-            'slug' => 'admin.bikes.destroy',
+            'slug' => 'app.bikes.destroy',
+        ]);
+
+        // Silder management
+        $moduleAdminSlider = Module::updateOrCreate(['name' => 'Slider Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAdminSlider->id,
+            'name' => 'Access slider',
+            'slug' => 'app.sliders.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAdminSlider->id,
+            'name' => 'Create slider',
+            'slug' => 'app.sliders.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAdminSlider->id,
+            'name' => 'Edit slider',
+            'slug' => 'app.sliders.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAdminSlider->id,
+            'name' => 'Delete slider',
+            'slug' => 'app.sliders.destroy',
         ]);
     }
 }

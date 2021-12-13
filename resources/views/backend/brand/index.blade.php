@@ -17,7 +17,7 @@
             </div>
             <div class="page-title-actions">
 
-                @permission('admin.bikes.create')
+                @permission('app.bikes.create')
                     <a href="{{ route('app.brands.create') }}" class="btn-shadow mr-3 btn btn-primary">
                         <i class="fas fa-plus"></i> Create brand
                     </a>
@@ -51,14 +51,14 @@
                                     </td>
                                     <td class="text-center">{{ $brand->updated_at->diffForHumans() }}</td>
                                     <td class="text-center">
-                                        @permission('admin.bikes.edit')
+                                        @permission('app.bikes.edit')
                                             <a href="{{ route('app.brands.edit', $brand->id) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                 <span>Edit</span>
                                             </a>
                                         @endpermission
 
-                                        @permission('admin.bikes.destroy')
+                                        @permission('app.bikes.destroy')
                                             <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $brand->id }})">
                                                 <i class="fas fa-trash-alt"></i>
                                                 <span>Delete</span>

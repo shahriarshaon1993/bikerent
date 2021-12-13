@@ -32,83 +32,99 @@ class MenuSeeder extends Seeder
             'order' => 2,
             'title' => 'Dashboard',
             'url' => '/app/dashboard',
-            'icon_class' => 'metismenu-icon pe-7s-rocket',
+            'icon_class' => 'pe-7s-rocket',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 3,
-            'title' => 'Categories',
-            'url' => '/app/categories',
-            'icon_class' => 'fas fa-folder-open',
+            'title' => 'Sliders',
+            'url' => '/app/sliders',
+            'icon_class' => 'pe-7s-photo',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 4,
-            'title' => 'Brands',
-            'url' => '/app/brands',
-            'icon_class' => 'fas fa-battle-net',
+            'title' => 'Categories',
+            'url' => '/app/categories',
+            'icon_class' => 'pe-7s-folder',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 5,
-            'title' => 'Pages',
-            'url' => '/app/pages',
-            'icon_class' => 'metismenu-icon pe-7s-news-paper',
+            'title' => 'Brands',
+            'url' => '/app/brands',
+            'icon_class' => 'pe-7s-way',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
-            'type' => 'divider',
+            'type' => 'item',
             'order' => 6,
-            'divider_title' => 'Access controll'
+            'title' => 'Bikes',
+            'url' => '/app/bikes',
+            'icon_class' => 'pe-7s-bicycle',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 7,
-            'title' => 'Roles',
-            'url' => '/app/roles',
-            'icon_class' => 'metismenu-icon pe-7s-check',
-        ]);
-
-        $backendSidebar->menuItems()->updateOrCreate([
-            'type' => 'item',
-            'order' => 8,
-            'title' => 'Users',
-            'url' => '/app/users',
-            'icon_class' => 'metismenu-icon pe-7s-users',
+            'title' => 'Pages',
+            'url' => '/app/pages',
+            'icon_class' => 'pe-7s-news-paper',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'divider',
+            'order' => 8,
+            'divider_title' => 'Access controll'
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
             'order' => 9,
-            'divider_title' => 'System'
+            'title' => 'Roles',
+            'url' => '/app/roles',
+            'icon_class' => 'pe-7s-check',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 10,
-            'title' => 'Menus',
-            'url' => '/app/menus',
-            'icon_class' => 'metismenu-icon pe-7s-menu',
+            'title' => 'Users',
+            'url' => '/app/users',
+            'icon_class' => 'pe-7s-users',
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
-            'type' => 'item',
+            'type' => 'divider',
             'order' => 11,
-            'title' => 'Backups',
-            'url' => '/app/backups',
-            'icon_class' => 'metismenu-icon pe-7s-cloud',
+            'divider_title' => 'System'
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 12,
+            'title' => 'Menus',
+            'url' => '/app/menus',
+            'icon_class' => 'pe-7s-menu',
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
+            'order' => 13,
+            'title' => 'Backups',
+            'url' => '/app/backups',
+            'icon_class' => 'pe-7s-cloud',
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
+            'order' => 14,
             'title' => 'Settings',
             'url' => '/app/settings/general',
-            'icon_class' => 'metismenu-icon pe-7s-settings',
+            'icon_class' => 'pe-7s-settings',
         ]);
     }
 }

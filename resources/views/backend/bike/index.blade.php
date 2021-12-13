@@ -17,7 +17,7 @@
             </div>
             <div class="page-title-actions">
 
-                @permission('admin.bikes.create')
+                @permission('app.bikes.create')
                     <a href="{{ route('app.bikes.create') }}" class="btn-shadow mr-3 btn btn-primary">
                         <i class="fas fa-plus"></i> Create bike
                     </a>
@@ -50,17 +50,42 @@
                                     <td class="text-center">{{ $bike->title }}</td>
                                     <td class="text-center">{{ $bike->price_per_day }}</td>
                                     <td class="text-center">{{ $bike->discount_price }}</td>
-                                    <td class="text-center">{{ $bike->status }}</td>
+                                    <td class="text-center">
+                                        @if ($bike->status == true)
+                                            <span class="badge badge-primary">Active</span>
+                                        @else
+                                            <span class="badge badge-danger">Inactive</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">{{ $bike->updated_at->diffForHumans() }}</td>
                                     <td class="text-center">
-                                        @permission('admin.bikes.edit')
+                                        @permission('app.bikes.index')
+                                            @if ($bike->status == true)
+                                                <form class="d-inline" method="POST" action="{{ route('app.bikes.deactive', $bike->id) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Deactive">
+                                                        <i class="fas fa-toggle-on"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form class="d-inline" method="POST" action="{{ route('app.bikes.active', $bike->id) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-info" title="Active">
+
+                                                        <i class="fas fa-toggle-off"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endpermission
+
+                                        @permission('app.bikes.edit')
                                             <a href="{{ route('app.bikes.edit', $bike->id) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                 <span>Edit</span>
                                             </a>
                                         @endpermission
 
-                                        @permission('admin.bikes.destroy')
+                                        @permission('app.bikes.destroy')
                                             <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $bike->id }})">
                                                 <i class="fas fa-trash-alt"></i>
                                                 <span>Delete</span>

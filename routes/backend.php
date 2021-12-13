@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,4 +78,8 @@ Route::resource('categories', CategoryController::class)->except('show');
 // Brands
 Route::resource('brands', BrandController::class)->except('show');
 // Bikes
+Route::post('bikes/{bike}/active', [BikeController::class, 'active'])->name('bikes.active');
+Route::post('bikes/{bike}/deactive', [BikeController::class, 'deactive'])->name('bikes.deactive');
 Route::resource('bikes', BikeController::class);
+// Sliders
+Route::resource('sliders', SliderController::class)->except('show');

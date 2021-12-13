@@ -1,22 +1,49 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/">{{ setting('site_title', 'Laravel') }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="main_nav">
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
+            @php
+                $categories = menuHelper();
+            @endphp
+
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
+                @if (count($categories))
+                    @foreach ($categories as $category)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{ $category->name }}</a>
+                            @if (count($category->subcategory))
+                                <ul class="dropdown-menu">
+                                    @foreach ($category->subcategory as $subCategory)
+                                        <li>
+                                            <a class="dropdown-item" href="#">{{ $subCategory->name }}</a>
+                                            @if (count($subCategory->subcategory))
+                                                <ul class="submenu dropdown-menu">
+                                                    @foreach ($subCategory->subcategory as $child)
+                                                        <li>
+                                                            <a class="dropdown-item" href="">{{ $child->name }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="#"> About </a>
                 </li>
             </ul>
+
             <ul class="navbar-nav ml-auto">
                 @guest
                     @if (Route::has('login'))
@@ -57,6 +84,7 @@
                     </li>
                 @endguest
             </ul>
-        </div>
+
+        </div> <!-- navbar-collapse.// -->
     </nav>
 </header>

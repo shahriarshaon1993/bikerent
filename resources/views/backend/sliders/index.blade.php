@@ -10,16 +10,16 @@
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-menu icon-gradient bg-mean-fruit">
+                    <i class="pe-7s-photo icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>Categories</div>
+                <div>Slider</div>
             </div>
             <div class="page-title-actions">
 
-                @permission('app.bikes.create')
-                    <a href="{{ route('app.categories.create') }}" class="btn-shadow mr-3 btn btn-primary">
-                        <i class="fas fa-plus"></i> Create categories
+                @permission('app.sliders.create')
+                    <a href="{{ route('app.sliders.create') }}" class="btn-shadow mr-3 btn btn-primary">
+                        <i class="fas fa-plus"></i> Create slider
                     </a>
                 @endpermission
 
@@ -35,38 +35,38 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Name</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Image</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Updated at</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($parentCategories as $key=> $category)
+                            @foreach ($sliders as $key=> $slider)
                                 <tr>
                                     <td class="text-center text-muted">{{ $key + 1 }}</td>
+                                    <td class="text-center">{{ $slider->title }}</td>
                                     <td class="text-center">
-                                        {{ $category->name }}
-                                        @if ($category->parent_id == null)
-                                        <code class="badge badge-pill badge-warning ml-1">Parent</code>
-                                        @endif
-
+                                        <img src="{{ $slider->getFirstMediaUrl('slider_image') }}" alt="Slider Image" width="80px">
                                     </td>
-                                    <td class="text-center">{{ $category->updated_at->diffForHumans() }}</td>
+                                    <td class="text-center">{{ $slider->status }}</td>
+                                    <td class="text-center">{{ $slider->updated_at->diffForHumans() }}</td>
                                     <td class="text-center">
-                                        @permission('app.bikes.edit')
-                                            <a href="{{ route('app.categories.edit', $category->id) }}" class="btn btn-info btn-sm">
+                                        @permission('app.sliders.edit')
+                                            <a href="{{ route('app.sliders.edit', $slider->id) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                 <span>Edit</span>
                                             </a>
                                         @endpermission
 
-                                        @permission('app.bikes.destroy')
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $category->id }})">
+                                        @permission('app.sliders.destroy')
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $slider->id }})">
                                                 <i class="fas fa-trash-alt"></i>
                                                 <span>Delete</span>
                                             </button>
 
-                                            <form id="delete-form-{{ $category->id }}" method="POST" action="{{ route('app.categories.destroy', $category->id) }}" class="d-none">
+                                            <form id="delete-form-{{ $slider->id }}" method="POST" action="{{ route('app.sliders.destroy', $slider->id) }}" class="d-none">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>

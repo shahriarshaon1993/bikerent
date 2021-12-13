@@ -111,11 +111,29 @@
                                     <label for="category_id">Select category</label>
 
                                     <select id="category_id" class="form-control @error('category_id') is-invalid @enderror js-example-basic-single" name="category_id">
-                                        <option value="">--Select category--</option>
+                                        <option value="">--Select null category--</option>
 
-                                        @if (count($categories))
-                                            @foreach ($categories as $key=>$category)
-                                                <option value="{{ $category->id }}" @isset($bike) ? @if ($bike->brand_id === $category->id) selected  @endif : ''  @endisset>{{ $category->name }}</option>
+                                        @if (count($parentCategories))
+                                            @foreach ($parentCategories as $key=>$parentCategory)
+                                                <option value="{{ $parentCategory->id }}">
+
+                                                    {{ $parentCategory->name }}
+
+                                                    @if (count($parentCategory->subcategory))
+                                                        @foreach ($parentCategory->subcategory as $subcategory)
+                                                            <option value="{{ $subcategory->id }}">-- {{ $subcategory->name }}</option>
+
+                                                            @if (count($subcategory->subcategory))
+                                                                @foreach ($subcategory->subcategory as $subminicategory)
+                                                                    <option value="{{ $subminicategory->id }}">---- {{ $subminicategory->name }}</option>
+
+                                                                @endforeach
+                                                            @endif
+
+                                                        @endforeach
+                                                    @endif
+
+                                                </option>
                                             @endforeach
                                         @endif
 

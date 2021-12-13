@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Bike extends Model implements HasMedia
+class Slider extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
@@ -17,23 +17,13 @@ class Bike extends Model implements HasMedia
     public static function boot()
     {
         parent::boot();
-        static::creating(function ($bike) {
-            $bike->slug = Str::slug($bike->title);
+        static::creating(function ($slider) {
+            $slider->slug = Str::slug($slider->title);
         });
     }
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('bike_image')->singleFile();
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class);
+        $this->addMediaCollection('slider_image')->singleFile();
     }
 }
