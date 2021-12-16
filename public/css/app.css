@@ -189,3 +189,7 @@
 .closed-sidebar:not(.closed-sidebar-mobile) .app-header .app-header__logo .navbar-brand {
   display: none;
 }
+
+.app-theme-white .app-sidebar {
+  overflow: scroll;
+}

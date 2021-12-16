@@ -54,7 +54,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="widget-content-left flex2">
-                                                    <div class="widget-heading">{{ $user->name }}</div>
+                                                    <div class="widget-heading">
+                                                        <a href="{{ route('app.profile.products', $user->id) }}">{{ $user->name }}</a>
+                                                    </div>
                                                     <div class="widget-subheading opacity-7">
                                                         @if ($user->role)
                                                             <span class="badge badge-info">{{ $user->role->name }}</span>

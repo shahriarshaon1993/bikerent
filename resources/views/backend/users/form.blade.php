@@ -66,6 +66,67 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->address ?? old('address') }}" placeholder="Enter user address" required>
+
+                                    @error('address')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="occupation">Occupation</label>
+                                    <input id="occupation" type="text" class="form-control @error('occupation') is-invalid @enderror" name="occupation" value="{{ $user->occupation ?? old('occupation') }}" placeholder="Enter user occupation" required>
+
+                                    @error('occupation')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone ?? old('phone') }}" placeholder="Enter user phone" required>
+
+                                    @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="dateOfBirth">Date of birth</label>
+                                        <input id="dateOfBirth" type="date" class="form-control @error('dateOfBirth') is-invalid @enderror" name="dateOfBirth" value="{{ $user->dateOfBirth ?? old('dateOfBirth') }}" placeholder="Enter user dateOfBirth" required>
+
+                                        @error('dateOfBirth')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <label for="gender">Select gender</label>
+
+                                        <select class="custom-select" id="gender" name="gender">
+                                            <option selected>Choose...</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+
+                                        @error('gender')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="password">Password</label>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" {{ !isset($user) ? 'required' : '' }}>
 

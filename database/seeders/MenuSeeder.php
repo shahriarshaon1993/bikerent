@@ -70,6 +70,22 @@ class MenuSeeder extends Seeder
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
             'order' => 7,
+            'title' => 'Orders',
+            'url' => '/app/orders',
+            'icon_class' => 'pe-7s-wallet',
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
+            'order' => 8,
+            'title' => 'Delivered orders',
+            'url' => '/app/order/delivered',
+            'icon_class' => 'pe-7s-smile',
+        ]);
+
+        $backendSidebar->menuItems()->updateOrCreate([
+            'type' => 'item',
+            'order' => 9,
             'title' => 'Pages',
             'url' => '/app/pages',
             'icon_class' => 'pe-7s-news-paper',
@@ -77,13 +93,13 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'divider',
-            'order' => 8,
+            'order' => 10,
             'divider_title' => 'Access controll'
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 9,
+            'order' => 11,
             'title' => 'Roles',
             'url' => '/app/roles',
             'icon_class' => 'pe-7s-check',
@@ -91,7 +107,7 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 10,
+            'order' => 12,
             'title' => 'Users',
             'url' => '/app/users',
             'icon_class' => 'pe-7s-users',
@@ -99,13 +115,13 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'divider',
-            'order' => 11,
+            'order' => 13,
             'divider_title' => 'System'
         ]);
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 12,
+            'order' => 14,
             'title' => 'Menus',
             'url' => '/app/menus',
             'icon_class' => 'pe-7s-menu',
@@ -113,7 +129,7 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 13,
+            'order' => 15,
             'title' => 'Backups',
             'url' => '/app/backups',
             'icon_class' => 'pe-7s-cloud',
@@ -121,7 +137,7 @@ class MenuSeeder extends Seeder
 
         $backendSidebar->menuItems()->updateOrCreate([
             'type' => 'item',
-            'order' => 14,
+            'order' => 16,
             'title' => 'Settings',
             'url' => '/app/settings/general',
             'icon_class' => 'pe-7s-settings',

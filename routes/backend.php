@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
 use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
@@ -20,6 +21,11 @@ Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
 // Roles and Users
 Route::resource('/roles', RoleController::class);
+
+// User
+Route::post('/users/bikes/{bike}/active', [UserController::class, 'active'])->name('user.bikes.active');
+Route::post('/users/bikes/{bike}/deactive', [UserController::class, 'deactive'])->name('user.bikes.deactive');
+Route::get('/users/products/{id}', [UserController::class, 'userProduct'])->name('profile.products');
 Route::resource('/users', UserController::class);
 
 // Profile
@@ -78,8 +84,17 @@ Route::resource('categories', CategoryController::class)->except('show');
 // Brands
 Route::resource('brands', BrandController::class)->except('show');
 // Bikes
+Route::post('bikes/{bike}/available', [BikeController::class, 'available'])->name('bikes.available');
+Route::post('bikes/{bike}/booked', [BikeController::class, 'booked'])->name('bikes.booked');
 Route::post('bikes/{bike}/active', [BikeController::class, 'active'])->name('bikes.active');
 Route::post('bikes/{bike}/deactive', [BikeController::class, 'deactive'])->name('bikes.deactive');
 Route::resource('bikes', BikeController::class);
 // Sliders
 Route::resource('sliders', SliderController::class)->except('show');
+
+// Orders Routes
+Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/delivered', [OrderController::class, 'delivered'])->name('order.delivered');
+Route::get('/orders/view/{id}', [OrderController::class, 'orderView'])->name('order.view');
+Route::post('/order/accept/{id}', [OrderController::class, 'orderAccept'])->name('order.accept');
+Route::post('/order/cancel/{id}', [OrderController::class, 'orderCancel'])->name('order.cancel');

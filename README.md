@@ -16,6 +16,8 @@ Starte Kits is public CMS management system using Bootstrap, Sass, Javascript, P
 -   Install `composer require browner12/helpers"` // for menu helper
 -   Install `composer require imliam/laravel-env-set-command:^1.0"` // for .env set command
 -   Install `composer require laravel/socialite"`
+-   Install `composer require bumbummen99/shoppingcart"`
+-   Install `composer require laravelista/comments"`
 
 ## Installation Instructions
 

@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
+use Laravelista\Comments\Commentable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Bike extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Commentable;
 
     protected $guarded = ['id'];
 
@@ -35,5 +36,10 @@ class Bike extends Model implements HasMedia
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -39,7 +39,7 @@
                             <th class="text-center">Price</th>
                             <th class="text-center">Discount</th>
                             <th class="text-center">Status</th>
-                            <th class="text-center">Updated at</th>
+                            <th class="text-center">Booked</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
@@ -57,9 +57,32 @@
                                             <span class="badge badge-danger">Inactive</span>
                                         @endif
                                     </td>
-                                    <td class="text-center">{{ $bike->updated_at->diffForHumans() }}</td>
+                                    <td class="text-center">
+                                        @if ($bike->booked_status == true)
+                                            <span class="badge badge-primary">Available</span>
+                                        @else
+                                            <span class="badge badge-danger">Booked</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         @permission('app.bikes.index')
+                                            @if ($bike->booked_status == true)
+                                                <form class="d-inline" method="POST" action="{{ route('app.bikes.booked', $bike->id) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Booked">
+                                                        <i class="fas fa-toggle-on"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form class="d-inline" method="POST" action="{{ route('app.bikes.available', $bike->id) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-info" title="Available">
+
+                                                        <i class="fas fa-toggle-off"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+
                                             @if ($bike->status == true)
                                                 <form class="d-inline" method="POST" action="{{ route('app.bikes.deactive', $bike->id) }}">
                                                     @csrf
@@ -81,14 +104,12 @@
                                         @permission('app.bikes.edit')
                                             <a href="{{ route('app.bikes.edit', $bike->id) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-edit"></i>
-                                                <span>Edit</span>
                                             </a>
                                         @endpermission
 
                                         @permission('app.bikes.destroy')
                                             <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $bike->id }})">
                                                 <i class="fas fa-trash-alt"></i>
-                                                <span>Delete</span>
                                             </button>
 
                                             <form id="delete-form-{{ $bike->id }}" method="POST" action="{{ route('app.bikes.destroy', $bike->id) }}" class="d-none">

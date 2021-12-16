@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bike;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,11 +44,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         Gate::authorize('app.users.create');
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'address' => 'nullable|string|max:255',
+            'occupation' => 'nullable|string|max:255',
+            'phone' => 'nullable',
+            'dateOfBirth' => 'nullable',
+            'gender' => 'nullable',
             'role' => 'required',
             'password' => 'required|confirmed|string|min:8',
             'avatar' => 'required|image'
@@ -57,6 +62,11 @@ class UserController extends Controller
             'role_id' => $request->role,
             'name' => $request->name,
             'email' => $request->email,
+            'address' => $request->address,
+            'occupation' => $request->occupation,
+            'phone' => $request->phone,
+            'dateOfBirth' => $request->dateOfBirth,
+            'gender' => $request->gender,
             'password' => Hash::make($request->password),
             'status' => $request->filled('status'),
         ]);
@@ -106,6 +116,11 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'. $user->id,
+            'address' => 'nullable|string|max:255',
+            'occupation' => 'nullable|string|max:255',
+            'phone' => 'nullable',
+            'dateOfBirth' => 'nullable',
+            'gender' => 'nullable',
             'role' => 'required',
             'password' => 'nullable|confirmed|string|min:8',
             'avatar' => 'nullable|image'
@@ -115,6 +130,11 @@ class UserController extends Controller
             'role_id' => $request->role,
             'name' => $request->name,
             'email' => $request->email,
+            'address' => $request->address,
+            'occupation' => $request->occupation,
+            'phone' => $request->phone,
+            'dateOfBirth' => $request->dateOfBirth,
+            'gender' => $request->gender,
             'password' => isset($request->password) ? Hash::make($request->password) : $user->password,
             'status' => $request->filled('status'),
         ]);
@@ -123,6 +143,48 @@ class UserController extends Controller
         }
 
         notify()->success('User updated', 'Success');
+        return back();
+    }
+
+    /**
+     * Show spacific user product
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function userProduct($id)
+    {
+        $bikes = Bike::where('user_id', $id)->get();
+        return view('backend.users.userproduct', compact('bikes'));
+    }
+
+    /**
+     * Product active logic
+     *
+     * @param  mixed $product
+     * @return void
+     */
+    public function active(Bike $bike)
+    {
+        $bike->update([
+            'user_status' => true
+        ]);
+        notify()->success('Product approve successfully.', 'Approved');
+        return back();
+    }
+
+    /**
+     * Product deactive logic
+     *
+     * @param  mixed $product
+     * @return void
+     */
+    public function deactive(Bike $bike)
+    {
+        $bike->update([
+            'user_status' => false
+        ]);
+        notify()->success('Product pending successfully.', 'Pending');
         return back();
     }
 

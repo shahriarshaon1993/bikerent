@@ -15,6 +15,7 @@ class CreateBikesTable extends Migration
     {
         Schema::create('bikes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
             $table->string('title')->unique();
@@ -24,8 +25,11 @@ class CreateBikesTable extends Migration
             $table->decimal('discount_price', 8, 2)->nullable();
             $table->longText('description');
             $table->boolean('status')->default(false);
+            $table->boolean('user_status')->default(false);
+            $table->boolean('booked_status')->default(true);
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
