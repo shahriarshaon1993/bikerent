@@ -1,6 +1,11 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-        <a class="navbar-brand" href="/">{{ setting('site_title', 'Laravel') }}</a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
+        <div>
+            <a href="/" class="navbar-brand">
+                <img src="{{ Storage::url(setting('site_logo')) }}" alt="Logo" width="50px" height="50px" title="{{ setting('site_title', 'Laravel') }}">
+            </a>
+        </div>
+        {{-- <div><a class="navbar-brand" href="/">{{ setting('site_title', 'Laravel') }}</a></div> --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,9 +46,11 @@
                 @endif
 
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.profile.bike') }}">Manage bikes</a>
-                    </li>
+                    @permission('app.access.vendor')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.profile.bike') }}">Manage bikes</a>
+                        </li>
+                    @endpermission
                 @endauth
 
             </ul>

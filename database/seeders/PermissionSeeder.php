@@ -188,5 +188,13 @@ class PermissionSeeder extends Seeder
             'name' => 'Delete slider',
             'slug' => 'app.sliders.destroy',
         ]);
+
+        // Vendor management
+        $moduleVendor = Module::updateOrCreate(['name' => 'Vendor Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleVendor->id,
+            'name' => 'Access vendor',
+            'slug' => 'app.access.vendor',
+        ]);
     }
 }

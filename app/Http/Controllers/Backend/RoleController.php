@@ -46,7 +46,7 @@ class RoleController extends Controller
         Gate::authorize('app.roles.create');
         $this->validate($request, [
             'name' => 'required|unique:roles',
-            'permissions' => 'required|array',
+            'permissions' => 'array',
             'permissions.*' => 'integer'
         ]);
 
@@ -96,7 +96,7 @@ class RoleController extends Controller
         Gate::authorize('app.roles.edit');
         $this->validate($request, [
             'name' => 'required|unique:roles,name,' . $role->id,
-            'permissions' => 'required|array',
+            'permissions' => 'array',
             'permissions.*' => 'integer'
         ]);
 

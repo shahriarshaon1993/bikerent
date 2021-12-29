@@ -44,8 +44,8 @@ class OrderController extends Controller
     {
         Gate::authorize('app.bikes.index');
         $order = Order::with('user')->where('id', $id)->first();
-        $shipping = Shipping::with('order')->where('id', $id)->first();
-        $details = OrderDetails::with('order', 'bike')->where('id', $id)->first();
+        $shipping = Shipping::with('order')->where('order_id', $id)->first();
+        $details = OrderDetails::with('order', 'bike')->where('order_id', $id)->first();
 
         return view('backend.orders.view', compact('order', 'shipping', 'details'));
     }

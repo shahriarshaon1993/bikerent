@@ -1,47 +1,6 @@
 @extends('layouts.frontend.app')
 
 @section('content')
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            @foreach ($sliders as $key => $slider)
-                <li data-target="#myCarousel" data-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
-            @endforeach
-        </ol>
-        <div class="carousel-inner">
-            @foreach ($sliders as $key => $slider)
-                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                    <img class="first-slide" src="{{ $slider->getFirstMediaUrl('slider_image') }}" alt="First slide" style="object-fit:cover;">
-                    <div class="container">
-                        <div class="carousel-caption text-left">
-                            <h1 style="
-                                color: black;
-                                background: white;
-                                padding: 15px 15px;
-                                opacity: 0.5;
-                                border-left: 5px solid #0c8dff;
-                             ">
-                                {{ $slider->title }}
-                            </h1>
-                            {{-- <p style="color: #0c8dff;>{{ $slider->excerpt }}</p> --}}
-                            <p>
-                                <a class="btn btn-lg btn-primary" href="{{ $slider->link }}" role="button">Book now</a>
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
@@ -80,8 +39,8 @@
                     </div>
                 @endforeach
             </div>
-            <div class="text-right">
-                <a href="{{ route('all.products') }}" class="btn btn-primary btn-sm">View all</a>
+            <div>
+                {{ $products->links() }}
             </div>
         </div>
     </div>

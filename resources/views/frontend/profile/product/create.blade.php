@@ -56,7 +56,7 @@
 
                                                     <div class="col">
                                                         <label for="discount_price">Dicount price</label>
-                                                        <input id="discount_price" type="discount_price" class="form-control @error('discount_price') is-invalid @enderror" name="discount_price" value="{{ $bike->discount_price ?? old('discount_price') }}" placeholder="Discount price" required>
+                                                        <input id="discount_price" type="discount_price" class="form-control @error('discount_price') is-invalid @enderror" name="discount_price" value="{{ $bike->discount_price ?? old('discount_price') }}" placeholder="Discount price">
 
                                                         @error('discount_price')
                                                             <span class="invalid-feedback" role="alert">

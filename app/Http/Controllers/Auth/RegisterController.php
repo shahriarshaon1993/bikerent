@@ -65,12 +65,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'role_id' => Role::where('slug', 'user')->first()->id,
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'status' => 1
-        ]);
+        if($data['vendor'] == 'vendor') {
+            return User::create([
+                'role_id' => Role::where('slug', 'vendor')->first()->id,
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'status' => 1
+            ]);
+        }else {
+            return User::create([
+                'role_id' => Role::where('slug', 'user')->first()->id,
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'status' => 1
+            ]);
+        }
     }
 }

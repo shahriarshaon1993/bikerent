@@ -113,8 +113,7 @@
                                         <label for="gender">Select gender</label>
 
                                         <select class="custom-select" id="gender" name="gender">
-                                            <option selected>Choose...</option>
-                                            <option value="male">Male</option>
+                                            <option value="male" selected>Male</option>
                                             <option value="female">Female</option>
                                         </select>
 

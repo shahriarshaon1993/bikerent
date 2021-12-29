@@ -52,10 +52,12 @@ Route::as('user.')->middleware('auth')->prefix('profile')->group(function() {
     Route::get('/bikes/orders/view/{id}', [UserOrderController::class, 'orderView'])->name('profile.order.view');
     Route::post('/bikes/order/accept/{id}', [UserOrderController::class, 'orderAccept'])->name('profile.order.accept');
     Route::post('/bikes/order/cancel/{id}', [UserOrderController::class, 'orderCancel'])->name('profile.order.cancel');
+    Route::get('/bikes/my-orders', [UserOrderController::class, 'myOrder'])->name('profile.my.order');
 });
 
 // Product Search
 Route::post('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/all/products', [HomeController::class, 'allProducts'])->name('all.products');
 Route::get('/search/categories/{slug}', [HomeController::class, 'searchByCategories'])->name('search.categories');
 
 // Dinamic page route | This route allows define in the end

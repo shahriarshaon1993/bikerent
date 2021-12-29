@@ -10,6 +10,6 @@ class PageController extends Controller
     public function index($slug)
     {
         $page = Page::findBySlug($slug);
-        return $page;
+        return view('frontend.page', compact('page'));
     }
 }

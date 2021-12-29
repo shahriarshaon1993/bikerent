@@ -62,13 +62,16 @@
                                                 <form action="{{ route('user.profile.bike.destroy', $bike->slug) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                    <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-sm btn-danger">
+                                                        Delete
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $bikes->links() }}
                         </div>
                     @else
                         <div class="alert alert-primary" role="alert">

@@ -18,8 +18,19 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::where('status', true)->get();
-        $products = Bike::where('status', true)->where('user_status', true)->get();
+        $products = Bike::where('status', true)->where('user_status', true)->get()->random(12);
         return view('frontend.home', compact('sliders', 'products'));
+    }
+
+    /**
+     * Show all products
+     *
+     * @return void
+     */
+    public function allProducts()
+    {
+        $products = Bike::where('status', true)->where('user_status', true)->paginate(12);
+        return view('frontend.products', compact('products'));
     }
 
     /**
@@ -51,7 +62,7 @@ class HomeController extends Controller
     public function searchByCategories($slug)
     {
         $category = Category::where('slug', $slug)->first();
-        $products = Bike::where('category_id', $category->id)
+        $products = Bike::with('category')->where('category_id', $category->id)
                     ->where('status', true)->where('user_status', true)
                     ->get();
         $title = $category->name;

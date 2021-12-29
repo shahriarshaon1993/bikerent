@@ -89,7 +89,7 @@
                                 <div class="custom-control custom-radio">
                                     <input class="form-check-input" type="radio" name="cashon" id="cashon" value="1" checked>
                                     <label class="form-check-label" for="cashon">
-                                        Cash on
+                                        Cash on delivery
                                     </label>
                                 </div>
                             </div>

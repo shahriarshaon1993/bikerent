@@ -28,5 +28,11 @@ class RoleSeeder extends Seeder
             'deletable' => false
         ]);
 
+        Role::updateOrCreate([
+            'name' => 'Vendor',
+            'slug' => 'vendor',
+            'deletable' => false
+        ]);
+
     }
 }

@@ -89,7 +89,7 @@ class UserProfileController extends Controller
     public function product()
     {
         $userId = Auth::id();
-        $bikes = Bike::where('status', true)->where('user_id', $userId)->get();
+        $bikes = Bike::where('status', true)->where('user_id', $userId)->paginate(10);
         return view('frontend.profile.product', compact('bikes'));
     }
 
@@ -115,6 +115,7 @@ class UserProfileController extends Controller
             'discount_price' => $request->discount_price,
             'description' => $request->description,
             'status' => $request->filled('status'),
+            'user_status' => 1
         ]);
 
         // upload images

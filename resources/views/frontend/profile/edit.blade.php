@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <section class="userProfile mt-5">
+    <section class="userProfile my-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">

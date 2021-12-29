@@ -115,7 +115,6 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        Gate::authorize('admin.sliders.destroy');
         $slider->delete();
         notify()->success('Product deleted', 'Success');
         return back();
